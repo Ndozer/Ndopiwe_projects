@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CU Discord</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: purple;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .menu-container{
+            background: silver;
+            width: 40%;
+            height: 90vh;
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            height: auto;
+            display: none;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .create-box{
+            padding: 10px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            display: none;
+        }
+        .menu_btn{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .input-create{
+            width: 50%;
+            height: 20%;
+        }
+        .add_btn{
+            width: 50%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .message-container {
+            width: 40%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .discord-box {
+            height: 130%;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .message {
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 9px;
+            max-width: 70%;
+        }
+
+        .user {
+            background: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .receiver {
+            background: #e5e5ea;
+        }
+
+        .input-area {
+            display: flex;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover{
+            transition: 0.2s;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+<h1 id="display-text">I CU there</h1>
+<button class="menu_btn" id="menu_btn">Menu</button>
+<div class="menu-container">
+    <div class="menu">
+        <h3>Main category</h3>
+        <button class="general" id="general">##general</button>
+        <button class="announcement" id="announcement">##announcements</button>
+        <h3>Created category</h3>
+        <div class="btn-area">
+        <button class="create" id="create">--Create--</button>
+        </div>
+        <div class="create-box">
+            <input type="text" id="input-create" class="input-create">
+            <br>
+            <button id="add_btn" class="add_btn">Add</button>
+        </div>
+    </div>
+</div>
+<div class="message-container">
+    <h1></h1>
+    <div class="discord-box" id="discBox"></div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Enter message" />
+        <br>
+        <button onclick="sendMessage()">Send >></button>
+    </div>
+</div>
+
+<script src="CU_discord.js"></script>
+</body>
+</html>
