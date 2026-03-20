@@ -12,6 +12,14 @@
             align-items: center;
             height: 100vh;
         }
+        .layout{
+            width: 10%;
+            top: 5%;
+            right: 1%;
+            position: absolute;
+            padding: 10px;
+            gap:15px;
+        }
         .menu-container{
             background: silver;
             width: 40%;
@@ -34,6 +42,33 @@
             height: auto;
             display: none;
         }
+        .friend-container{
+            width: 30%;
+            height: 90vh;
+            top: 100px;
+            left: 20px;
+            position: absolute;
+            background-color:white;
+            padding: 20px;
+            margin-top: 10px;
+            height: auto;
+            display: none;
+            border-radius:10px;
+        }
+        .friend_btn{
+            position: absolute;
+            top: 70px;
+            left: 20px;
+        }
+        .input-friend{
+            width: 50%;
+            height: 20%;
+        }
+        .add_friend_btn{
+            width: 50%;
+            height: auto;
+            border-radius: 10px;
+        }
         .menu_btn{
             position: absolute;
             top: 20px;
@@ -47,6 +82,13 @@
             width: 50%;
             height: auto;
             border-radius: 10px;
+        }
+        .dash{
+            top: 18%;
+            left: 20px;
+            position: absolute;
+            padding: 10px;
+            gap:15px;
         }
         .message-container {
             width: 40%;
@@ -92,7 +134,6 @@
             outline: none;
             border-radius: 10px;
         }
-
         button {
             padding: 10px;
             border: none;
@@ -120,12 +161,25 @@
         <button class="create" id="create">--Create--</button>
         </div>
         <div class="create-box">
-            <input type="text" id="input-create" class="input-create">
+            <input type="text" id="input-create" class="input-create" placeholder="Create Category...">
             <br>
             <button id="add_btn" class="add_btn">Add</button>
         </div>
     </div>
 </div>
+
+<button class="friend_btn" id="friend_btn">Add Friend>></button>
+<div class="friend-container">
+    <div class="add_friend">
+        <h3>Add a friend</h3>
+        <input type="text" id="input-friend" class="input-friend" placeholder="Add friend...">
+        <br>
+        <button id="add_friend_btn" class="add_friend_btn">Add</button>
+    </div>
+</div>
+<div class="dash">---------------</div>
+<div class="layout"></div>
+
 <div class="message-container">
     <h1></h1>
     <div class="discord-box" id="discBox"></div>

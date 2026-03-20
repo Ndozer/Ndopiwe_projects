@@ -10,8 +10,38 @@ const add_btn = document.getElementById("add_btn");
 const create_box = document.querySelector(".create-box");
 const btn_area = document.querySelector(".btn-area");
 const btn_input = document.getElementById("input-create");
-add_btn.addEventListener("click", function() {
 
+const layout = document.querySelector(".layout");
+const friend_container = document.querySelector(".friend-container");
+const friend_input = document.getElementById("input-friend");
+const add_friend_btn = document.getElementById("add_friend_btn");
+const friend_btn = document.getElementById("friend_btn");
+const dash = document.querySelector(".dash");
+
+friend_btn.addEventListener("click", function () {
+    if (friend_container.style.display == "none" || friend_container.style.display == ""){
+        friend_container.style.display = "block";
+        menu_btn.style.display = "none";
+        dash.style.display = "none";
+    }else{
+        friend_container.style.display = "none";
+        menu_btn.style.display = "block";
+        dash.style.display = "block";
+    }
+})
+add_friend_btn.addEventListener("click", function() {
+    const newFriend = document.createElement("button");
+    newFriend.textContent = friend_input.value;
+    newFriend.style.width = "100px";
+    newFriend.style.height = "80px";
+    newFriend.addEventListener("click", function(){
+        heading.textContent = "Chat with " + newFriend.textContent;
+        loadMessages();
+    });
+    layout.appendChild(newFriend);
+    friend_input.value = "";
+})
+add_btn.addEventListener("click", function() {
     const newCategory = document.createElement("button");
     newCategory.textContent = "##" + btn_input.value;
     newCategory.addEventListener("click", function(){
@@ -23,8 +53,12 @@ add_btn.addEventListener("click", function() {
 menu_btn.addEventListener("click", function () {
     if (menu_container.style.display == "none" || menu_container.style.display == ""){
         menu_container.style.display = "block";
+        friend_btn.style.display = "none";
+        dash.style.display = "none";
     }else{
         menu_container.style.display = "none";
+        friend_btn.style.display = "block";
+        dash.style.display = "block";
     }
 })
 
@@ -41,42 +75,46 @@ general_btn.addEventListener("click", function() {
 ann_btn.addEventListener("click", function() {
     heading.textContent = "Announcements"
 })
+function loadMessages() {
 
+    const sender = "Me";
+    const receiver = heading.textContent.replace("Chat with ", "");
+
+    if (!receiver) return;
+
+    fetch(`Load.php?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`)
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("discBox").innerHTML = data;
+    });
+}
 async function sendMessage() {
     const input = document.getElementById("userInput");
     const message = input.value.trim();
     if (!message) return;
 
-    addMessage(message, "user");
-    input.value = "";
-
-    addMessage("Responding...", "receiver");
-    try{
-        const data = await response.json();
-
-        removeLastMessage();
-
-        if (data.error) {
-            addMessage("Error: " + data.error, "receiver");
-            return;
-        }
-
-        addMessage(data[0].generated_text, "receiver");
-
-    } catch (err) {
-        removeLastMessage();
-        addMessage("Failed to send....", "receiver");
-        console.error(err);
-    }
+    const sender = "Me"; 
+    const receiver = heading.textContent.replace("Chat with ", "");
+    if (!receiver || receiver === "I CU there") {
+        alert("Select a friend first");
+        return;
 }
 
-function addMessage(txt, usr) {
-    const box = document.getElementById("discBox");
-    const div = document.createElement("div");
-    div.className = "message " + usr;
-    div.innerText = txt;
-    box.appendChild(div);
-    box.scrollTop = box.scrollHeight;
+    try {
+        await fetch("Send.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `sender=${sender}&receiver=${receiver}&message=${message}`
+        });
+
+        input.value = "";
+        loadMessages();
+
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 function removeLastMessage() {
@@ -89,3 +127,4 @@ document.getElementById("userInput").addEventListener("keypress", function(e) {
             sendMessage();
         }
     });
+setInterval(loadMessages, 1000);
