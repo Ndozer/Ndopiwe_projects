@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You vs Ndopiwe Bot</title>
+    <style>
+        /* Reset margins and center everything on the screen */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e0f2fe; /* Light blue background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Container to keep content stacked vertically and centered */
+        .game-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Heading style */
+        h1 {
+            color: #1e3a8a; /* Deep blue for contrast */
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        /* Button group layout */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between buttons */
+            align-items: center;
+        }
+
+        /* Individual large button styling */
+        .btn {
+            font-size: 1.5rem;
+            padding: 15px 40px;
+            width: 250px; /* Ensures all buttons are the same width */
+            border: none;
+            border-radius: 8px;
+            background-color: #2563eb; /* Vibrant blue button */
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        /* Hover effect for responsiveness */
+        .btn:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        /* Active click effect */
+        .btn:active {
+            transform: translateY(1px);
+        }
+        img{
+            height:100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>You vs Ndopiwe Bot</h1>
+        <div id="response"></div>
+        <div id="result"></div>         
+        <div class="options">
+            <button class="btn" id="rock"><img src="rock.png" alt="Icon" class="rock-icon">Rock</button>
+            <button class="btn" id="paper"><img src="paper.png" alt="Icon" class="paper-icon">Paper</button>
+            <button class="btn" id="scissor"><img src="scissors.png" alt="Icon" class="scissor-icon">Scissor</button>
+        </div>
+    </div>
+    <script src="RPS.js"></script>
+</body>
+</html>
