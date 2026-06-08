@@ -1,0 +1,9 @@
+body{
+    text-align:center;
+}
+#board{
+    background:url("brooklyn.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+}
