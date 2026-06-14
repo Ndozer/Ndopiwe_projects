@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); 
+            padding: 20px;
+        }
+        
+        .generator-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        h1 {
+            color: #0369a1; 
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        p {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 16px;
+            font-size: 1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            color: #334155;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+        }
+        
+        .generate {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #0284c7; 
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(2, 132, 199, 0.2);
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+        }
+        
+        .generate:hover {
+            background-color: #0369a1;
+            box-shadow: 0 6px 12px rgba(2, 132, 199, 0.3);
+        }
+        
+        .generate:active {
+            transform: scale(0.98);
+        }
+
+        /* NEW: Stylized choice elements for a premium interactive feel */
+        .quiz-choice {
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #475569;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-choice:hover {
+            border-color: #0284c7;
+            background-color: #f0f9ff;
+            color: #0369a1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="generator-card">
+        <h1>Quiz Generator</h1>
+        <p>Generate questions based on any topic</p>
+        <div class="input-group">
+            <input type="text" id="topic-input" placeholder="Enter topic/category:" autocomplete="off">
+            <button class="generate" id="generate">Generate Quiz</button>
+        </div>
+        <div id="response"></div>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>
