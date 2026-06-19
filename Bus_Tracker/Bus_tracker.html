@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manchester Bus Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #007BFF; color: white; border: none; border-radius: 4px; }
+        .stop-card { border: 1px solid #ddd; padding: 15px; margin-top: 15px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .error { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Nearby Bus Stops & Arrivals</h2>
+    <button id="find-me">Find Nearby Buses</button>
+    <div id="error-message" class="error"></div>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('find-me').addEventListener('click', () => {
+            const resultsDiv = document.getElementById('results');
+            const errorDiv = document.getElementById('error-message');
+            resultsDiv.innerHTML = "Finding...";
+            errorDiv.innerHTML = "";
+
+            if (!navigator.geolocation) {
+                errorDiv.innerHTML = "Our system is not supported by your browser.";
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords;
+                
+                try {
+                    // Send coordinates to your Node.js backend
+                    const response = await fetch('http://localhost:3000/api/bus-times', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ latitude, longitude })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success && data.stops.length > 0) {
+                        resultsDiv.innerHTML = "<h3>Nearest Stops:</h3>";
+                        data.stops.forEach(stop => {
+                            resultsDiv.innerHTML += `
+                                <div class="stop-card">
+                                    <strong>${stop.name}</strong><br>
+                                    <small>${stop.vicinity}</small>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        resultsDiv.innerHTML = "No nearby bus stops found within 500m.";
+                    }
+                } catch (err) {
+                    errorDiv.innerHTML = "Error retrieving data from server.";
+                    resultsDiv.innerHTML = "";
+                }
+            }, () => {
+                errorDiv.innerHTML = "Unable to retrieve your location. Make sure location access is allowed.";
+                resultsDiv.innerHTML = "";
+            });
+        });
+    </script>
+</body>
+</html>
