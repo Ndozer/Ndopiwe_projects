@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraper</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 80vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px; /* Smooth curved corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow effect */
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Spaces out form items nicely */
+            text-align: left;
+        }
+        label {
+            font-weight: 600;
+            color: #34495e;
+            font-size: 14px;
+            margin-bottom: -5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px; /* Curved corners for inputs */
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #3498db; /* Blue highlight color on click */
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px; /* Highly requested curved corners */
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9; /* Slightly darker blue on hover */
+        }
+        button:active {
+            transform: scale(0.98); /* Tiny button click effect */
+        }
+        .results-box {
+            margin-top: 30px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+            text-align: left;
+        }
+        .results-box h2 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-top: 0;
+            border-bottom: 2px solid #f4f7f6;
+            padding-bottom: 10px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;       
+            word-wrap: break-word;       
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;            
+            font-size: 13px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Web Scrape Any Website</h1>
+        
+        <form action="/submit" method="POST">
+            <label for="user_input">Enter URL:</label>
+            <input type="text" id="user_input" name="my_url" placeholder="Enter URL..." required>      
+            <label for="elements">Select Element:</label>
+            <select id="elements" name="elements">
+                <option value="div">div</option>
+                <option value="p">p</option>
+                <option value="h1">h1</option>
+                <option value="h2">h2</option>
+                <option value="h3">h3</option>
+                <option value="h4">h4</option>
+                <option value="h5">h5</option>
+                <option value="span">span</option>
+                <option value="li">li</option>
+            </select>
+            
+            <button type="submit">SCRAPE!</button>
+        </form>
+    </div>
+
+    {% if results %}
+    <div class="results-box">
+        <h2>Results:</h2>
+        <pre>{{ results }}</pre>
+    </div>
+    {% endif %}
+
+</body>
+</html>
