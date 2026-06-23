@@ -63,7 +63,6 @@
             width: 100%;
         }
         #loginBtn { background-color: #a5d6a7; color: #1b5e20; }
-        /* Changed selector to match the active element, hidden initially */
         #playButton { background-color: #90caf9; display: none; } 
     </style>
 </head>
@@ -72,16 +71,15 @@
     <div class="player-container">
         <h1 class="player-title">Ndops's music player</h1>
         
-        <!-- Merged into one cleaner container -->
         <div class="album-art-placeholder">
             <div id="trackName" class="track-name">Status: Disconnected</div>
             <div id="artistName" class="artist-name">Log in with Spotify to begin</div>
         </div>       
         
         <button id="loginBtn" class="btn">Connect Spotify</button>
-        <!-- Standardized on id="playButton" -->
         <button id="playButton" class="btn">Play</button>
     </div>
+
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script src="music_player.js"></script>
 

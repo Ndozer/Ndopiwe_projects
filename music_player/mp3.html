@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Ndops' Music Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --player-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #10b981; 
+            --accent-glow: rgba(16, 185, 129, 0.3);
+            --border-radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Glassmorphism Player Container */
+        .music-player {
+            display: flex;
+            background: var(--player-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 820px;
+            height: 440px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        /* Left Side: Song Display & Search */
+        .song-display {
+            flex: 1.1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Search Bar styling */
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 16px 10px 42px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            color: var(--text-main);
+            outline: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .search-box .material-symbols-rounded {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 20px;
+        }
+
+        .album-art {
+            width: 170px;
+            height: 170px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.08));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent-color);
+            position: relative;
+        }
+
+        /* Glowing effect behind album art when playing */
+        .album-art.playing::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            top: 0; left: 0;
+            filter: blur(20px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .song-details {
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .song-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .artist-name {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        #status { 
+            color: var(--accent-color); 
+            font-size: 0.75rem; 
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Right Side: Controls */
+        .song-controls {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        /* Progress Bar Section */
+        .progress-container {
+            width: 100%;
+            margin-bottom: 35px;
+        }
+
+        .time-stamps {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+        }
+
+        /* Button Layouts */
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .btn:hover {
+            color: var(--text-main);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-toggle.active {
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Core Unified Playback Control */
+        .btn-master-play {
+            background: var(--text-main);
+            color: #0f172a;
+            padding: 16px;
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-master-play:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px var(--accent-glow);
+        }
+
+        .btn .material-symbols-rounded { font-size: 24px; }
+        .btn-master-play .material-symbols-rounded { font-size: 32px; }
+        
+        #youtube-audio-player { position: absolute; top: -9999px; left: -9999px; }
+    </style>
+</head>
+<body>
+
+    <div class="music-player">
+        <!-- LEFT: UI Context Display -->
+        <section class="song-display">
+            <!-- Search System Box -->
+            <div class="search-box">
+                <span class="material-symbols-rounded">search</span>
+                <input type="text" id="track-search" placeholder="Search track name or paste URL...">
+            </div>
+
+            <div class="album-art" id="ui-art">
+                <span class="material-symbols-rounded" style="font-size: 64px;">music_note</span>
+            </div>
+
+            <div class="song-details">
+                <h2 class="song-title" id="ui-title">THANK GOD I'M FREE</h2>
+                <p class="artist-name" id="ui-artist">Elevation Rhythm</p>
+            </div>
+            
+            <div id="status">Connecting to YouTube...</div>
+        </section>
+
+        <!-- RIGHT: Live Controls Bridge -->
+        <section class="song-controls">
+            <div class="progress-container">
+                <div class="time-stamps">
+                    <span id="current-time">0:00</span>
+                    <span id="total-time">0:00</span>
+                </div>
+                <input type="range" min="0" max="100" value="0" class="slider" id="song-progress">
+            </div>
+
+            <div class="control-buttons">
+                <button class="btn btn-toggle" id="btn-repeat" title="Repeat Track">
+                    <span class="material-symbols-rounded">repeat</span>
+                </button>
+
+                <button class="btn" id="btn-prev" title="Previous Track">
+                    <span class="material-symbols-rounded">skip_previous</span>
+                </button>
+
+                <!-- Combined Unified Master Button -->
+                <button class="btn btn-master-play" id="master-toggle" title="Play">
+                    <span class="material-symbols-rounded" id="master-icon">play_arrow</span>
+                </button>
+
+                <button class="btn" id="btn-next" title="Next Track">
+                    <span class="material-symbols-rounded">skip_next</span>
+                </button>
+
+                <button class="btn btn-toggle" id="btn-queue" title="View Queue/List">
+                    <span class="material-symbols-rounded">queue_music</span>
+                </button>
+            </div>
+        </section>
+    </div>
+    <div id="youtube-audio-player"></div>
+    <script src="mp3.js"></script>
+</body>
+</html>
