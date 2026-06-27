@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Solver</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --border-color: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        img{
+            width: 70%;
+            height: 60%;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex: 1;
+        }
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+        #file-input {
+            display: none;
+        }
+        #input-section {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        input[type="text"]:focus {
+            outline: 2px solid var(--primary-color);
+            border-color: transparent;
+        }
+        .solve-btn {
+            background-color: #10b981;
+            width: 100%;
+        }
+        .solve-btn:hover {
+            background-color: #059669;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Math Solver</h1>
+        <img src="Math.png">        
+        <div class="button-group">
+            <input type="file" id="file-input" accept="image/*">
+            <button onclick="triggerUpload()">Upload Image</button>
+            
+            <button onclick="showInputSection()">Type Out Equation</button>
+        </div>
+        <div id="input-section">
+            <input type="text" id="equation-text" placeholder="e.g matrices([1,2]+[2,3]), equations (2x+5=10) or 5/10....">
+            <button class="solve-btn" onclick="solveEquation()">Solve</button>
+        </div>
+        <div id ="result-box"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.0/dist/tesseract.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/algebrite@1.4.0/dist/algebrite.bundle-main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/nerdamer.core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Algebra.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Calculus.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Solve.js"></script>
+    <script src="solver.js"></script>
+
+</body>
+</html>
