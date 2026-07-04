@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories Album</title>
+    <link rel="stylesheet" href="album.css">
+</head>
+<body>
+    <button class="login-btn" id="login">Login</button>
+    <button class="upgrade-btn" id="upgrade">Upgrade</button>
+    <div class="album">
+        <div class="cover" id="front-cover">[ENTER FRONT COVER DETAILS]</div>
+        <div>
+            <button class="add-photo"><span>+</span><input type="file" accept="image/*"></button>
+            <button class="add-photo"><span>+</span><input type="file" accept="image/*"></button>
+        </div>
+        <div>
+            <button class="add-photo"><span>+</span><input type="file" accept="image/*"></button>
+            <button class="add-photo"><span>+</span><input type="file" accept="image/*"></button>
+        </div>
+        <div>
+            <button class="add-photo"><span>+</span><input type="file" accept="image/*"></button>
+            <button class="add-photo"><span>+</span><input type="file" accept="image/*"></button>
+        </div>
+        <div>
+            <button class="add-photo"><span>+</span><input type="file" accept="image/*"></button>
+            <button class="add-photo"><span>+</span><input type="file" accept="image/*"></button>
+        </div>
+        <div class="cover" id="back-cover">[ENTER BACK COVER DETAILS]</div>
+    </div>
+
+    <div class="controls">
+        <input id="title" type="text" placeholder="Title of album">
+        <input id="end-title" type="text" placeholder="Type end cover">
+        <button id="edit-btn">Edit</button>
+    </div>
+
+    <script src="jquery.js"></script>
+    <script src="turn.js"></script>
+    <script src="album.js"></script>
+</body>
+</html>

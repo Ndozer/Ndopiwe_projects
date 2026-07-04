@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght=0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; 
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: #f1c40f;
+}
+
+.upgrade-btn, .login-btn {
+    position: absolute;
+    top: 20px;
+    z-index: 1000;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-btn {
+    left: 20px; 
+}
+
+.upgrade-btn {
+    right: 20px;
+}
+
+.upgrade-btn:hover, .login-btn:hover {
+    background-color: #0056b3;
+}
+
+.upgrade-btn:active, .login-btn:active {
+    transform: scale(0.98);
+}
+
+.album {
+    width: 1000px;
+    height: 600px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+}
+
+.cover{
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    text-align: center;
+    width: 100%;
+    font-size: 24px;          
+    font-weight: 600;  
+    color: #2c3e50;
+}
+
+.album .cover {
+    background: lightseagreen !important;
+    width: 100%;
+    height: 100%;
+}
+
+.album > div:not(.cover) {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); 
+    grid-template-rows: repeat(2, auto);   
+    gap: 50px;                             
+    padding: 40px;                         
+    justify-items: center;                 
+    align-content: center;                 
+}
+
+.album div button {
+    width: 100%;                           
+    max-width: 420px;                      
+    height: 280px;                         
+    font-size: 56px;                       
+    font-weight: 300;
+    border: 3px dashed #bdc3c7;
+    background: #fdfdfd;
+    color: #95a5a6;
+    border-radius: 16px;                   
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.album div button:hover {
+    background: #f5f6fa;
+    color: #e74c3c;                        
+    border-color: #e74c3c;
+    transform: scale(1.02);
+}
+
+.album button.add-photo input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    display: none; 
+}
+
+.album button.add-photo span {
+    pointer-events: none; 
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px 25px;
+    border-radius: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.controls input[type="text"] {
+    padding: 10px 18px;
+    border: 1px solid #dcdde1;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    width: 200px;
+    transition: border-color 0.2s;
+}
+
+.controls input[type="text"]:focus {
+    border-color: #e74c3c;
+}
+
+#edit-btn {
+    padding: 10px 24px;
+    background: #2c3e50;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#edit-btn:hover {
+    background: #1a252f;
+}
+
+#edit-btn:active {
+    transform: scale(0.98);
+}
+

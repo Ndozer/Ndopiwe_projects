@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Package</title>
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --primary-blue-hover: #0056b3;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        .frame {
+            display: flex;
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .one, .two {
+            background: var(--card-bg);
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .one:hover, .two:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: #111;
+        }
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 10px 0 5px 0;
+            color: var(--primary-blue);
+        }
+        .period {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        button.pay-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 12px;
+        }
+        button.pay-btn:hover {
+            background-color: var(--primary-blue-hover);
+        }
+        .gpay-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            min-height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upgrade Package</h1>
+    <div class="frame">
+        <div class="one">
+            <h3>20 Extra Album Pages</h3>
+            <p class="price">£2</p>
+            <p class="period">One-time payment</p>
+            <button class="pay-btn" onclick="processPayment(2)">Pay Card</button>
+            <div id="gpay-container-2" class="gpay-container"></div>
+        </div>
+        <div class="two">
+            <h3>40 Extra Album Pages</h3>
+            <p class="price">£4</p>
+            <p class="period">One-time payment</p>
+            <button class="pay-btn" onclick="processPayment(4)">Pay Card</button>
+            <div id="gpay-container-4" class="gpay-container"></div>
+        </div>
+    </div>
+    <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
+    <script>
+        function processPayment(amount) {
+            alert('Processing standard payment for £' + amount);
+        }
+        window.onload = function() {
+            if (window.google && google.payments) {
+                const paymentsClient = new google.payments.api.PaymentsClient({environment: 'TEST'});
+                const button2 = paymentsClient.createButton({
+                    onClick: () => alert('Google Pay for £2 triggered'),
+                    buttonColor: 'black',
+                    buttonType: 'buy'
+                });
+                document.getElementById('gpay-container-2').appendChild(button2);
+                const button4 = paymentsClient.createButton({
+                    onClick: () => alert('Google Pay for £4 triggered'),
+                    buttonColor: 'black',
+                    buttonType: 'buy'
+                });
+                document.getElementById('gpay-container-4').appendChild(button4);
+            }
+        };
+    </script>
+</body>
+</html>
