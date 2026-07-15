@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Ai</title>
+</head>
+<body>
+    <h1>Ask Ai</h1>
+    <form id="form-container" action="/submit" method="POST">
+    <input type="text" placeholder="Ask any question" name="question" required>
+    <button class="submit" id="submit">Answer</button>
+    </form>
+    <div id="display"></div>
+    <div class="response" id="result">
+        {% if results %}
+            <p>{{ results }}</p>
+        {% endif %}
+    </div>
+    <style>
+        #display {
+            display: none;
+            color: red;
+            font-style: italic;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        body{
+            background-color: aliceblue;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 250px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button{
+            width: 120px;
+            height: 40px;
+            border-radius: 8px;
+            border: 0;
+            background-color: lightgreen;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        button:hover{
+            background-color: lightblue;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+    <script>
+        const form = document.getElementById('form-container');
+        const display = document.getElementById('display');
+        const result = document.getElementById('result');
+        const submitBtn = document.getElementById('submit');
+
+        form.addEventListener('submit', function() {
+            display.style.display = 'block';
+            if (result) {
+                result.style.display = 'none';
+            }
+            submitBtn.disabled = true;
+            display.innerText = "Analysing question...";
+        });
+    </script>
+</body>
+</html>
